@@ -3,8 +3,10 @@ load_dotenv()
 
 import streamlit as st
 
+from utils import generate_script
+
 st.title("YouTube Script Generator")
-st.write("This is a simple web app to generate a script for a YouTube video using OpenAI's GPT-3.5-Turbo.")
+st.write("This is a simple web app to generate a script for a YouTube video by browsing the web.")
 
 # Captures User Inputs
 prompt = st.text_input('Topic of the video',key="prompt")  # The box for the text prompt
@@ -15,14 +17,19 @@ submit = st.button("Generate Script")
 
 if submit:
         
-    # call the generate_script function (to be created)
+    # call the generate_script function from utils
+    search_result,title,script = generate_script(prompt,video_length,creativity)
     st.success('Here is your script ❤️')
 
     #Display Title
     st.subheader("Title:🔥")
+    st.write(title)
 
     #Display Video Script
     st.subheader("Your Video Script:📝")
+    st.write(script)
 
     #Display Search Engine Result
     st.subheader("Check Out - DuckDuckGo Search Results:🔍")
+    with st.expander('Show me 👀'): 
+            st.info(search_result)
